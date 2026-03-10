@@ -920,6 +920,44 @@ async def pioneer_action(var, config, args):
     cg.add(var.set_rc_code_2(template_))
 
 
+# Pioneer WYT
+(
+    PioneerWytData,
+    PioneerWytBinarySensor,
+    PioneerWytTrigger,
+    PioneerWytAction,
+    PioneerWytDumper,
+) = declare_protocol("PioneerWyt")
+PIONEER_WYT_SCHEMA = cv.Schema(
+    {
+        cv.Required(CONF_CODE): cv.All([cv.hex_uint8_t], cv.Length(min=13, max=14)),
+    }
+)
+
+
+@register_binary_sensor("pioneer_wyt", PioneerWytBinarySensor, PIONEER_WYT_SCHEMA)
+def pioneer_wyt_binary_sensor(var, config):
+    cg.add(var.set_data(config[CONF_CODE]))
+
+
+@register_trigger("pioneer_wyt", PioneerWytTrigger, PioneerWytData)
+def pioneer_wyt_trigger(var, config):
+    pass
+
+
+@register_dumper("pioneer_wyt", PioneerWytDumper)
+def pioneer_wyt_dumper(var, config):
+    pass
+
+
+@register_action("pioneer_wyt", PioneerWytAction, PIONEER_WYT_SCHEMA)
+async def pioneer_wyt_action(var, config, args):
+    template_ = await cg.templatable(
+        config[CONF_CODE], args, cg.std_vector.template(cg.uint8)
+    )
+    cg.add(var.set_code(template_))
+
+
 # Pronto
 (
     ProntoData,

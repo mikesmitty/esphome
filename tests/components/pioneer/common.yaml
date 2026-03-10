@@ -1,0 +1,17 @@
+climate:
+  - platform: pioneer
+    id: pioneer_ac
+    uart_id: uart_bus
+    name: "Pioneer AC"
+    beeper: true
+    display: true
+    defrost_status:
+      name: "Defrosting"
+    indoor_fan_speed:
+      name: "Indoor Fan Speed"
+    outdoor_fan_speed:
+      name: "Outdoor Fan Speed"
+    outdoor_temperature:
+      name: "Outdoor Temperature"
+    power_usage:
+      name: "Power Usage"
